@@ -19,8 +19,8 @@ jobs:
      uses: appleboy/scp-action@v0.1.3
      with:
       host: ${{ secrets.EC2_HOST}}
-      username: $${{ secrets.EC2_USER}}
-      key: $${{ secrets.EC2_KEY}}
+      username: ${{ secrets.EC2_USER}}
+      key: ${{ secrets.EC2_KEY}}
       source: "."
       target: "~/ci-cd-app"
 #  Step 3: SSH into EC2 and Deploy
@@ -28,9 +28,9 @@ jobs:
      uses: appleboy/ssh-action@v0.1.10
      with:
       host: ${{ secrets.EC2_HOST}}
-      username: $${{ secrets.EC2_USER}}
-      key: $${{ secrets.EC2_KEY}}
+      username: ${{ secrets.EC2_USER}}
+      key: ${{ secrets.EC2_KEY}}
       script: |
        cd ~/ci-cd-app
-       chmod +x setup.SSH
+       chmod +x setup.sh
        ./setup.sh
