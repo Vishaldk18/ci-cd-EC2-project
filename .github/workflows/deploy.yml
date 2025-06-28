@@ -6,31 +6,31 @@ on:
   branches:
    - main
 # Job Definition
-job:
- deploy:
-  runs-on: ubuntu-latest
+jobs:
+  deploy:
+   runs-on: ubuntu-latest
 # Job Steps
 #  Step 1: Checkout Code
-  steps:
-  - name: Checkout Code
-    uses: actions/checkout@v3
+   steps:
+   - name: Checkout Code
+     uses: actions/checkout@v3
 #  Step 2: Copy Files to EC2
-  - name: Copy files to EC2
-    uses: appleboy/scp-action@v0.1.3
-    with:
-     host: ${{ secrets.EC2_HOST}}
-     username: $${{ secrets.EC2_USER}}
-     key: $${{ secrets.EC2_KEY}}
-     source: "."
-     target: "~/ci-cd-app"
+   - name: Copy files to EC2
+     uses: appleboy/scp-action@v0.1.3
+     with:
+      host: ${{ secrets.EC2_HOST}}
+      username: $${{ secrets.EC2_USER}}
+      key: $${{ secrets.EC2_KEY}}
+      source: "."
+      target: "~/ci-cd-app"
 #  Step 3: SSH into EC2 and Deploy
-  - name: SSH into EC2 and Deploy
-    uses: appleboy/ssh-action
-    with:
-     host: ${{ secrets.EC2_HOST}}
-     username: $${{ secrets.EC2_USER}}
-     key: $${{ secrets.EC2_KEY}}
-     script: |
-      cd ~/ci-cd-app
-      chmod +x setup.SSH
-      ./setup.sh
+   - name: SSH into EC2 and Deploy
+     uses: appleboy/ssh-action@v0.1.10
+     with:
+      host: ${{ secrets.EC2_HOST}}
+      username: $${{ secrets.EC2_USER}}
+      key: $${{ secrets.EC2_KEY}}
+      script: |
+       cd ~/ci-cd-app
+       chmod +x setup.SSH
+       ./setup.sh
